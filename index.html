@@ -29,8 +29,7 @@
     <li><a href="#why">02&nbsp;&nbsp;Why Us</a></li>
     <li><a href="#testimonials">03&nbsp;&nbsp;Results</a></li>
     <li><a href="#community">04&nbsp;&nbsp;Community</a></li>
-    <li><a href="#team">05&nbsp;&nbsp;Team</a></li>
-    <li><a href="#faq">06&nbsp;&nbsp;FAQ</a></li>
+    <li><a href="#faq">05&nbsp;&nbsp;FAQ</a></li>
     <li><a href="#plans" class="nav-cta-btn">Join Now</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
@@ -43,8 +42,7 @@
   <a href="#why">02 — Why Us</a>
   <a href="#testimonials">03 — Results</a>
   <a href="#community">04 — Community</a>
-  <a href="#team">05 — Team</a>
-  <a href="#faq">06 — FAQ</a>
+  <a href="#faq">05 — FAQ</a>
   <a href="#plans" class="mobile-cta">Join Now →</a>
 </div>
 
@@ -247,7 +245,7 @@
     <div class="why-item">
       <div class="why-num">004 — Automation</div>
       <div class="why-title">Bot Alerts + Signals</div>
-      <p class="why-desc">Magnet and Scalp8nator alert systems with full context — so you understand the setup, not just the entry.</p>
+      <p class="why-desc">Magnet and Scalp8nator alert systems covering Gold, Silver, BTC, ETH, and NAS100 — with full context so you understand the setup, not just the entry.</p>
     </div>
     <div class="why-item">
       <div class="why-num">005 — Analysis</div>
@@ -376,57 +374,17 @@
         <div class="terminal-sidebar">
           <div class="sidebar-server-name">Crilines Academy</div>
           <div class="sidebar-cat">Analysis</div>
-          <div class="sidebar-ch active"><span class="ch-sym">#</span> market-analysis</div>
-          <div class="sidebar-ch"><span class="ch-sym">#</span> trade-setups</div>
+          <div class="sidebar-ch active" onclick="switchChannel('market-analysis')" style="cursor:pointer"><span class="ch-sym">#</span> market-analysis</div>
+          <div class="sidebar-ch" onclick="switchChannel('trade-setups')" style="cursor:pointer"><span class="ch-sym">#</span> trade-setups</div>
           <div class="sidebar-cat">Learning</div>
-          <div class="sidebar-ch"><span class="ch-sym">#</span> trade-reviews</div>
-          <div class="sidebar-ch"><span class="ch-sym">#</span> study-resources</div>
+          <div class="sidebar-ch" onclick="switchChannel('trade-reviews')" style="cursor:pointer"><span class="ch-sym">#</span> trade-reviews</div>
+          <div class="sidebar-ch" onclick="switchChannel('study-resources')" style="cursor:pointer"><span class="ch-sym">#</span> study-resources</div>
           <div class="sidebar-cat">Members</div>
-          <div class="sidebar-ch"><span class="ch-sym">#</span> wins-and-losses</div>
-          <div class="sidebar-ch"><span class="ch-sym">#</span> general</div>
+          <div class="sidebar-ch" onclick="switchChannel('wins-and-losses')" style="cursor:pointer"><span class="ch-sym">#</span> wins-and-losses</div>
+          <div class="sidebar-ch" onclick="switchChannel('general')" style="cursor:pointer"><span class="ch-sym">#</span> general</div>
         </div>
-        <div class="terminal-msgs">
-          <div class="ch-title"># market-analysis</div>
-          <div class="chat-msg">
-            <div class="chat-av" style="background:rgba(0,200,83,0.15);color:var(--green);">K</div>
-            <div class="chat-right">
-              <div class="chat-meta">
-                <span class="chat-name" style="color:var(--green);">Mentor Karl</span>
-                <span class="chat-time">Today 7:12 AM</span>
-              </div>
-              <div class="chat-text">GBP/USD looking for a retest of 1.2740. Watch for rejection there. <span class="chat-tag tag-buy">BUY SETUP</span></div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="chat-av" style="background:rgba(100,100,255,0.12);color:#9090ff;">J</div>
-            <div class="chat-right">
-              <div class="chat-meta">
-                <span class="chat-name" style="color:#9090ff;">Jello</span>
-                <span class="chat-time">Today 7:15 AM</span>
-              </div>
-              <div class="chat-text">Nice confluence with the weekly FVG too 🎯 alert set</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="chat-av" style="background:rgba(255,180,0,0.12);color:#FFB800;">R</div>
-            <div class="chat-right">
-              <div class="chat-meta">
-                <span class="chat-name" style="color:#FFB800;">Renz</span>
-                <span class="chat-time">Today 9:43 AM</span>
-              </div>
-              <div class="chat-text">Just took it — +45 pips so far 🙌 salamat boss</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="chat-av" style="background:rgba(0,200,83,0.15);color:var(--green);">C</div>
-            <div class="chat-right">
-              <div class="chat-meta">
-                <span class="chat-name" style="color:var(--green);">Mentor Criline</span>
-                <span class="chat-time">Today 10:01 AM</span>
-              </div>
-              <div class="chat-text">Good discipline. Trail after 1:1. NAS100 also forming <span class="chat-tag tag-sell">SELL SETUP</span> on 1H — check it.</div>
-            </div>
-          </div>
+        <div class="terminal-msgs" id="discord-messages">
+          <!-- Filled by JS -->
         </div>
       </div>
     </div>
@@ -465,44 +423,9 @@
 </section>
 
 
-<!-- ══ TEAM ══ -->
-<section id="team" class="section section-dark">
-  <span class="section-num reveal">05 — The Team</span>
-  <h2 class="section-heading reveal">Traders,<br><em>not influencers.</em></h2>
-  <p class="section-sub reveal">Everyone here has passed real funded challenges and trades real capital. No lifestyle flexing — just daily mentorship.</p>
-
-  <div class="team-grid stagger">
-    <div class="team-card">
-      <div class="team-photo">C</div>
-      <div class="team-name">Criline</div>
-      <div class="team-role">Founder &amp; Lead Mentor</div>
-      <p class="team-exp">3+ years in Forex and indices. FTMO-certified. Built the entire education curriculum and the Crilines trading system from the ground up.</p>
-    </div>
-    <div class="team-card">
-      <div class="team-photo" style="border-color:rgba(136,136,255,0.3);color:#8888ff;background:rgba(136,136,255,0.05);">K</div>
-      <div class="team-name">Karl</div>
-      <div class="team-role">Senior Mentor &amp; Analyst</div>
-      <p class="team-exp">Specializes in GBP pairs and US sessions. Known for clean supply &amp; demand analysis and live trade walkthroughs.</p>
-    </div>
-    <div class="team-card">
-      <div class="team-photo" style="border-color:rgba(255,184,0,0.3);color:#FFB800;background:rgba(255,184,0,0.05);">D</div>
-      <div class="team-name">Dev Team</div>
-      <div class="team-role">Bot &amp; Tools Developer</div>
-      <p class="team-exp">Maintains the Magnet and Scalp8nator alert systems, member dashboard, and automation tools that power the community.</p>
-    </div>
-    <div class="team-card">
-      <div class="team-photo" style="border-color:rgba(208,144,208,0.3);color:#d090d0;background:rgba(208,144,208,0.05);">A</div>
-      <div class="team-name">Analyst Team</div>
-      <div class="team-role">Market Analysts</div>
-      <p class="team-exp">Posts daily setups, prepares the weekly market briefing, and monitors active trades across Forex, indices, and crypto.</p>
-    </div>
-  </div>
-</section>
-
-
 <!-- ══ ROADMAP ══ -->
 <section id="roadmap" class="section section-surface">
-  <span class="section-num reveal">06 — Roadmap</span>
+  <span class="section-num reveal">05 — Roadmap</span>
   <h2 class="section-heading reveal">Know exactly<br><em>where you're going.</em></h2>
   <p class="section-sub reveal">A clear path from zero to funded. No guessing what to study next. Full interactive roadmap coming soon.</p>
 
@@ -531,7 +454,6 @@
       <div class="roadmap-num">05</div>
       <div class="roadmap-title">Advanced Module</div>
       <p class="roadmap-desc">Higher timeframe confluence, intermarket analysis, and scaling a funded account responsibly.</p>
-      <div class="roadmap-coming">⏳ Coming soon</div>
     </div>
   </div>
 </section>
@@ -539,7 +461,7 @@
 
 <!-- ══ FAQ ══ -->
 <section id="faq" class="section section-dark">
-  <span class="section-num reveal">07 — FAQ</span>
+  <span class="section-num reveal">06 — FAQ</span>
   <h2 class="section-heading reveal">Common<br><em>questions.</em></h2>
 
   <div class="faq-list">
@@ -553,7 +475,7 @@
     </div>
     <div class="faq-item reveal">
       <button class="faq-q">What markets do you trade?<span class="faq-chevron">▾</span></button>
-      <p class="faq-a">We focus primarily on Forex pairs (GBP/USD, EUR/USD, USD/JPY and others) and indices (US30, NAS100). Our strategy also applies to crypto and gold, which we cover in the advanced modules.</p>
+      <p class="faq-a">We primarily trade Gold (XAU/USD), Silver (XAG/USD), Bitcoin (BTC), Ethereum (ETH), and NAS100. Our system and strategies are built around these markets, with additional pairs covered in the advanced modules.</p>
     </div>
     <div class="faq-item reveal">
       <button class="faq-q">How much time do I need each day?<span class="faq-chevron">▾</span></button>
