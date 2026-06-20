@@ -464,9 +464,11 @@ strong { color: var(--white); }
 .why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: var(--border);
+  gap: 1px;
+  background: var(--border);
   border: 1px solid var(--border);
   max-width: 1060px;
+  margin: 0 auto;
 }
 .why-item {
   background: var(--black-2); padding: 40px 36px;
@@ -488,16 +490,42 @@ strong { color: var(--white); }
 
 /* ── TESTIMONIALS ── */
 .testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border);
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+  cursor: default;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.testimonial-grid:active {
+  cursor: grabbing;
+}
+
+.testimonial-grid::-webkit-scrollbar {
+  display: none;
+}
+.testimonial-grid {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .testimonial-card {
-  background: var(--black-2); padding: 36px;
+  background: var(--black-2);
+  padding: 25px;
   transition: background 0.2s;
+  min-width: 300px;
+  max-width: 300px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  margin-right: 0;
 }
+
+.testimonial-card:last-child {
+  border-right: none;
+}
+
 .testimonial-card:hover { background: var(--black-3); }
 
 .t-quote-mark {
