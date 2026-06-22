@@ -868,15 +868,21 @@ footer           { background: rgba(15, 15, 15, 0.88) !important; }
   margin: 0 auto;
 }
 
-.roadmap-top,
-.roadmap-bottom {
+.roadmap-top {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
+.roadmap-bottom {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 1fr);
+  gap: 16px;
+}
+
 .roadmap-spacer {
-  /* empty cell to offset bottom row */
+  min-height: 0;
+  visibility: hidden;
 }
 
 .roadmap-box {
