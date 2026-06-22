@@ -197,7 +197,7 @@ strong { color: var(--white); }
 #hero {
   min-height: 100vh;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 100px 6% 80px;
+  padding: 80px 6% 80px;
   position: relative; overflow: hidden;
 }
 
