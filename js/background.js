@@ -7,9 +7,9 @@ const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
 const COLOR = '0, 200, 83';
-const PARTICLE_COUNT = 90;
-const MAX_DIST = 140;
-const SPEED = 0.35;
+const PARTICLE_COUNT = 120;
+const MAX_DIST = 180;
+const SPEED = 0.4;
 
 let width, height, particles = [];
 let lastScrollY = 0;
@@ -22,13 +22,13 @@ function resize() {
 class Particle {
   constructor() { this.init(true); }
 
-  init(random = false) {
+   init(random = false) {
     this.x  = Math.random() * width;
     this.y  = random ? Math.random() * height : height + 10;
     this.vx = (Math.random() - 0.5) * SPEED;
     this.vy = -(Math.random() * SPEED + 0.15);
-    this.r  = Math.random() * 1.5 + 0.5;
-    this.a  = Math.random() * 0.3 + 0.08;
+    this.r  = Math.random() * 2.5 + 1;
+    this.a  = Math.random() * 0.5 + 0.2;
   }
 
   update(scrollDelta) {
@@ -63,7 +63,7 @@ function drawLines() {
         ctx.beginPath();
         ctx.moveTo(particles[i].x, particles[i].y);
         ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(${COLOR}, ${(1 - d / MAX_DIST) * 0.1})`;
+        ctx.strokeStyle = `rgba(${COLOR}, ${(1 - d / MAX_DIST) * 0.18})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
