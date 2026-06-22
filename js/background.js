@@ -1,78 +1,110 @@
 /* ============================================
    CRILINES ACADEMY — background.js
-   Animated candlestick chart background
+   Particle network with scroll reaction
    ============================================ */
 
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
-const GREEN = 'rgba(0, 200, 83, 0.5)';
-const RED   = 'rgba(255, 80, 80, 0.45)';
-const BODY_W = 8;
-const CANDLE_GAP = 28;
+const CONFIG = {
+  particleCount: 80,
+  maxDistance:   150,
+  particleSpeed: 0.4,
+  dotRadius:     1.5,
+  lineOpacity:   0.12,
+  dotOpacity:    0.25,
+  color:         '0, 200, 83',   // green
+  scrollMult:    0.08,           // how much scroll affects particles
+};
 
-let candles = [];
-let width, height, cols;
+let width, height, particles = [];
+let scrollY = 0, targetScrollY = 0;
 
 function resize() {
   width  = canvas.width  = window.innerWidth;
   height = canvas.height = window.innerHeight;
-  cols   = Math.floor(width / CANDLE_GAP) + 2;
-  initCandles();
 }
 
-function randomCandle(x) {
-  const isBull = Math.random() > 0.45;
-  const midY   = Math.random() * height * 0.7 + height * 0.1;
-  const bodyH  = Math.random() * 60 + 10;
-  const open   = midY - bodyH / 2;
-  const close  = midY + bodyH / 2;
-  const wickT  = open  - Math.random() * 30;
-  const wickB  = close + Math.random() * 30;
-  const speed  = Math.random() * 0.3 + 0.1;
-  const alpha  = Math.random() * 0.5 + 0.15;
+class Particle {
+  constructor() { this.reset(true); }
 
-  return { x, open, close, wickT, wickB, isBull, speed, alpha, offset: Math.random() * Math.PI * 2 };
-}
+  reset(initial = false) {
+    this.x  = Math.random() * width;
+    this.y  = initial ? Math.random() * height : height + 10;
+    this.vx = (Math.random() - 0.5) * CONFIG.particleSpeed;
+    this.vy = -(Math.random() * CONFIG.particleSpeed + 0.2); // drift upward
+    this.radius = Math.random() * CONFIG.dotRadius + 0.5;
+    this.alpha  = Math.random() * CONFIG.dotOpacity + 0.08;
+  }
 
-function initCandles() {
-  candles = [];
-  for (let i = 0; i < cols; i++) {
-    candles.push(randomCandle(i * CANDLE_GAP));
+  update(scrollDelta) {
+    this.x += this.vx;
+    this.vy -= scrollDelta * CONFIG.scrollMult * 0.001; // scroll pushes up
+    this.y  += this.vy;
+
+    // Wrap horizontally
+    if (this.x < 0) this.x = width;
+    if (this.x > width) this.x = 0;
+
+    // Reset when off top
+    if (this.y < -10) this.reset();
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${CONFIG.color}, ${this.alpha})`;
+    ctx.fill();
   }
 }
 
-function drawCandle(c, t) {
-  const drift = Math.sin(t * c.speed + c.offset) * 18;
-  const open  = c.open  + drift;
-  const close = c.close + drift;
-  const wickT = c.wickT + drift;
-  const wickB = c.wickB + drift;
-  const color = c.isBull ? GREEN : RED;
-
-  ctx.globalAlpha = c.alpha;
-  ctx.strokeStyle = color;
-  ctx.fillStyle   = color;
-  ctx.lineWidth   = 1;
-
-  // Wick
-  ctx.beginPath();
-  ctx.moveTo(c.x, wickT);
-  ctx.lineTo(c.x, wickB);
-  ctx.stroke();
-
-  // Body
-  ctx.fillRect(c.x - BODY_W / 2, open, BODY_W, close - open);
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < CONFIG.particleCount; i++) {
+    particles.push(new Particle());
+  }
 }
 
-let t = 0;
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const a = particles[i];
+      const b = particles[j];
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < CONFIG.maxDistance) {
+        const opacity = (1 - dist / CONFIG.maxDistance) * CONFIG.lineOpacity;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(${CONFIG.color}, ${opacity})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+let lastScrollY = 0;
+
 function animate() {
   ctx.clearRect(0, 0, width, height);
-  t += 0.008;
-  candles.forEach(c => drawCandle(c, t));
+
+  // Smooth scroll delta
+  targetScrollY = window.scrollY;
+  const scrollDelta = targetScrollY - lastScrollY;
+  lastScrollY = targetScrollY;
+
+  particles.forEach(p => p.update(scrollDelta));
+  drawConnections();
+  particles.forEach(p => p.draw());
+
   requestAnimationFrame(animate);
 }
 
-window.addEventListener('resize', resize);
+window.addEventListener('resize', () => { resize(); initParticles(); });
 resize();
+initParticles();
 animate();
