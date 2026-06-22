@@ -854,7 +854,7 @@ footer {
   width: 100%; height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 #nav {
@@ -869,10 +869,9 @@ section, .ticker-section, footer,
   background: transparent !important;
 }
 
-.section-dark    { background: rgba(10,10,10,0.75) !important; }
-.section-surface { background: rgba(15,15,15,0.75) !important; }
-
-#cta-banner      { background: rgba(15,15,15,0.75) !important; }
-#risk-disclaimer { background: rgba(10,10,10,0.75) !important; }
-footer           { background: rgba(15,15,15,0.75) !important; }
-.ticker-section  { background: rgba(15,15,15,0.75) !important; }
+.section-dark    { background: rgba(10, 10, 10, 0.88) !important; }
+.section-surface { background: rgba(15, 15, 15, 0.88) !important; }
+#cta-banner      { background: rgba(15, 15, 15, 0.88) !important; }
+#risk-disclaimer { background: rgba(10, 10, 10, 0.88) !important; }
+footer           { background: rgba(15, 15, 15, 0.88) !important; }
+.ticker-section  { background: rgba(15, 15, 15, 0.88) !important; }
